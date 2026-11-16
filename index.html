@@ -1412,6 +1412,10 @@
       <div><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="10" r="3.5"/><path d="M9 17h6"/></svg><h3>Visa Didi</h3><p>My live AI side project: visa answers only from official sources.</p></div>
       <div class="fig">Live<small>AI, RAG</small></div>
     </a>
+    <a class="row-link side-row" role="link" tabindex="0" data-go="dispatch-assistant">
+      <div><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M7 10l3 2-3 2M12 14h4"/></svg><h3>Dispatch Assistant</h3><p>My AI agent side project: an MCP server that keeps grocery orders on time, with guardrails and evals.</p></div>
+      <div class="fig">100%<small>evals passed</small></div>
+    </a>
   </div>
 </section>
 
@@ -1852,6 +1856,62 @@
   <p class="snum"><b>05</b>Where it landed</p>
   <div class="landed"><div><strong>Live</strong><span>on Vercel, built solo with AI tools</span></div><div><strong>12</strong><span>destinations, from Thailand to the US</span></div><div><strong>40</strong><span>test questions to benchmark it against Claude and ChatGPT</span></div></div>
   <div class="hero-links" style="margin-top:2rem"><a class="btn primary" href="https://visa-didi-git-main-vj-aaaf.vercel.app/" target="_blank" rel="noopener">Try the live app</a><a class="btn" href="https://docs.google.com/document/d/1qO-7rLLVdXT14PVvqVvChOpOas6PgNiS25KT8Wf5PRA/view" target="_blank" rel="noopener">Read the PRD</a></div>
+</div></section>
+
+<section><div class="wrap">
+  <a class="next" role="link" tabindex="0" data-go="dispatch-assistant"><span>Next project</span><strong>Dispatch Assistant</strong></a>
+</div></section>
+
+<footer><div class="wrap">© 2026 Vaishnavi Jhariya. <a role="link" tabindex="0" data-go="home">Back to portfolio</a></div></footer>
+</div>
+
+<div class="view" id="v-dispatch-assistant" data-title="Dispatch Assistant | Vaishnavi Jhariya" hidden>
+<div class="invert">
+<nav>
+  <div class="wrap">
+    <a class="mark" role="link" tabindex="0" data-go="home">Vaishnavi Jhariya</a>
+    <ul>
+      <li><a role="link" tabindex="0" data-go="home" data-anchor="projects">All projects</a></li>
+      <li><a role="link" tabindex="0" data-go="about">About me</a></li>
+      <li><a role="link" tabindex="0" data-go="home" data-anchor="contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<header class="p-hero"><div class="wrap">
+  <svg class="icon lg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M7 10l3 2-3 2M12 14h4"/></svg>
+  <p class="kind">Side project, AI agent</p>
+  <h1>Dispatch Assistant</h1>
+  <p class="lede">How I'd let an AI agent help dispatchers without letting it act on its own.</p>
+</div></header>
+</div>
+
+<section class="sl"><div class="wrap">
+  <p class="snum"><b>01</b>The gap I noticed</p>
+  <p class="gap-text">At Buncha I designed Buncher, the escalation system dispatchers used to keep orders on time. An AI agent could do the lookups for them in seconds. But an agent that reassigns orders or calls in a delivery partner unasked can do real damage on a busy evening.</p>
+</div></section>
+
+<section class="sl"><div class="wrap">
+  <p class="snum"><b>02</b>How I reframed it</p>
+  <p class="reframe">The agent can look anything up, but it only proposes actions. A human dispatcher approves them, and the rules live in code, so a clever prompt can't talk its way past them.</p>
+  <video class="anim" src="dispatch-demo.mp4" autoplay muted loop playsinline controls preload="metadata" aria-label="Demo: in Claude Desktop, Claude finds at-risk orders, checks which shoppers are free, and holds three orders over $150 for dispatcher approval" style="border:2px solid var(--ink);border-radius:12px"></video>
+  <p class="anim-cap">real demo in Claude Desktop, fictional data</p>
+</div></section>
+
+<section class="sl"><div class="wrap">
+  <p class="snum"><b>03</b>Decisions that shaped it</p>
+  <ol class="steps"><li><div><b>Read freely, write carefully</b><span>Three tools only look things up. The three that act (reassign, fall back to a partner, escalate) each come with a guardrail.</span></div></li><li><div><b>Guardrails in code, not in the prompt</b><span>Reassignment stays within the same store, and fallback is allowed only when no shopper is free. Orders over $150 need a dispatcher's approval.</span></div></li><li><div><b>Every action leaves a trail</b><span>An audit log records who did what to which order, and when.</span></div></li><li><div><b>Fix judgment through tool design</b><span>When evals caught the agent acting on a status question, I fixed the tool descriptions. That way the fix works in any MCP client, not just mine.</span></div></li></ol>
+</div></section>
+
+<section class="sl"><div class="wrap">
+  <p class="snum"><b>04</b>How I got there</p>
+  <ol class="process"><li>Modelled orders, shoppers and stores on Buncher, with fictional data</li><li>Built the MCP server with 6 tools and guardrail tests</li><li>Wrote 30 eval scenarios, including prompt injection and approval-bypass attempts</li><li>Ran them on Claude Sonnet 5.5 and Haiku 5.5, fixed the failures and re-ran</li><li>Connected it to Claude Desktop and recorded the demo</li></ol>
+</div></section>
+
+<section class="sl"><div class="wrap">
+  <p class="snum"><b>05</b>Where it landed</p>
+  <div class="landed"><div><strong>100%</strong><span>of 30 eval scenarios passed on both models, up from 97% on Sonnet</span></div><div><strong>100%</strong><span>of guardrails held, including injection and bypass attempts</span></div><div><strong>2 → 0</strong><span>tool errors on Haiku after I rewrote the tool descriptions</span></div></div>
+  <p class="gap-text" style="margin-top:1.5rem">The trade-off: longer tool descriptions cost 7% more tokens on Sonnet and 20% more on Haiku.</p>
+  <div class="hero-links" style="margin-top:2rem"><a class="btn primary" href="https://github.com/vaishnavi08-commits/dispatch-assistant-mcp" target="_blank" rel="noopener">See the code and evals</a></div>
 </div></section>
 
 <section><div class="wrap">
